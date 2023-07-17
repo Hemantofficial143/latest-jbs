@@ -5,6 +5,7 @@
             ref="edit-item-modal"
             title="Edit Item"
             ok-title="Update"
+            @cancel="reset"
             @ok="saveItem('addItemValidator')"
 
         >
@@ -991,6 +992,18 @@ export default {
             this.$refs['edit-item-modal'].show()
 
         },
+        reset(){
+            this.add = {
+                item_name: null,
+                item_description: null,
+                type: null,
+                height: null,
+                width: null,
+                rate: null,
+                qty: null,
+                total: null,
+            }
+        },
         saveItem($ref) {
 
             this.$refs[$ref].validate()
@@ -1001,16 +1014,7 @@ export default {
                                 if (response.success) {
                                     this.showToaster(response.message, response.success)
                                     this.fetchInvoiceData()
-                                    this.add = {
-                                        item_name: null,
-                                        item_description: null,
-                                        type: null,
-                                        height: null,
-                                        width: null,
-                                        rate: null,
-                                        qty: null,
-                                        total: null,
-                                    }
+                                    this.reset()
                                 }
                             })
                     }
